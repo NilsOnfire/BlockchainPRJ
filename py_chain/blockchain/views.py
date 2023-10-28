@@ -70,7 +70,8 @@ class Blockchain:
         self.transactions.append({
             'sender':sender,
             'receiver':receiver,
-            'amount':amount})
+            'amount':amount,
+            'time': time})
         previous_block = self.get_previous_block()
         return previous_block['index']+1
     
@@ -151,11 +152,11 @@ def mine_block(request):
     return JsonResponse(response)
 
 
-# def list_transactions(request):
+def list_transactions(request):
     
-#     transactions = blockchain.transactions
-#     return render(request,'./templates/index.html', {'transactions': transactions})
-
+    transactions = blockchain.transactions
+    print(transactions)
+    return transactions
 
 # Getting the full Blockchain
 def get_chain(request):
@@ -195,8 +196,8 @@ def add_transaction(request): #New
             return 'Some elements of the transaction are missing', HttpResponse(status=400)
         index = blockchain.add_transaction(form_data['sender'], form_data['receiver'], form_data['amount'],form_data['time'])
         response = {'message': f'This transaction will be added to Block {index}'}
-      #  list_transactions(request)
-    return JsonResponse(response)
+        transactions = list_transactions(request)
+    return render(request,'../templates/index.html', context = {'transactions': transactions})
 
 # Connecting new nodes
 @csrf_exempt

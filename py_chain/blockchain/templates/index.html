@@ -43,10 +43,10 @@
                 <tbody>
                     {% for transaction in transactions %}
                     <tr>
-                        <td>{{ transaction.from }}</td>
-                        <td>{{ transaction.to }}</td>
+                        <td>{{ transaction.sender }}</td>
+                        <td>{{ transaction.receiver }}</td>
                         <td>{{ transaction.amount }}</td>
-                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.time }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
