@@ -187,19 +187,20 @@ def add_transaction(request): #New
   
     
     if request.method == 'POST':
-        received_json = json.loads(request.body)
-        print(received_json)
+        form_data = request.POST.dict()
+       
+        print(form_data)
         transaction_keys = ['sender', 'receiver', 'amount','time']
-        if not all(key in received_json for key in transaction_keys):
+        if not all(key in form_data for key in transaction_keys):
             return 'Some elements of the transaction are missing', HttpResponse(status=400)
-        index = blockchain.add_transaction(received_json['sender'], received_json['receiver'], received_json['amount'],received_json['time'])
+        index = blockchain.add_transaction(form_data['sender'], form_data['receiver'], form_data['amount'],form_data['time'])
         response = {'message': f'This transaction will be added to Block {index}'}
       #  list_transactions(request)
     return JsonResponse(response)
 
 # Connecting new nodes
 @csrf_exempt
-def connect_node(request): #New
+def connect_nodes(request): #New
     if request.method == 'POST':
         received_json = json.loads(request.body)
         nodes = received_json.get('nodes')
