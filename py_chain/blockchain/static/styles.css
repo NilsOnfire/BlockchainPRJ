@@ -1,0 +1,87 @@
+.container {
+    text-align: center;
+    margin-top: 20px;
+    background: lightgray;
+    border-color: darkgreen;
+}
+
+
+.status,
+.transactions {
+    margin-bottom: 40px;
+}
+
+
+.form {
+    background: black;
+    width: 300px;
+
+    margin: auto;
+    color: greenyellow;
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+margin-bottom: 5px;
+height: 50px;
+}
+
+
+label{
+align-self: start;
+font-weight: bold;
+margin-left: 2px;
+font-family: Source Code Pro;
+
+}
+
+input{
+    display: flex;
+    align-items: flex-end;
+    height: 30px;
+    font-family: monospace;
+    font-size: medium;
+border-radius: 5px;
+}
+
+
+button{
+    margin: 20px; ;
+    height: 30px;
+    width: 70px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+
+th {
+    background-color: #007bff;
+    color: white;
+}

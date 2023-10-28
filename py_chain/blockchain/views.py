@@ -29,6 +29,7 @@ class Blockchain:
         
     def replace_chain(self):
         network = self.nodes
+        print(network)
         longest_chain = None
         max_length = len(self.chain)
         
@@ -37,6 +38,7 @@ class Blockchain:
             response = requests.get(f'http://{node}/get_chain')
             if response.status_code == 200:
                 data = response.json()
+                print(data)
                 length= data['length']
                 print(length)
                 chain = data['chain']
@@ -49,7 +51,7 @@ class Blockchain:
                 self.chain = longest_chain
                 return True
             
-            return False
+        return False
          
     def create_block(self, proof, previous_hash):
   
@@ -118,10 +120,11 @@ class Blockchain:
             previous_block = block
             block_index += 1
 
-        return True
+        return True 
     
     
 
+from django.template import loader
 
 # Creating our Blockchain
 blockchain = Blockchain()
@@ -146,6 +149,13 @@ def mine_block(request):
                     'transactions': block['transactions']}
         
     return JsonResponse(response)
+
+
+# def list_transactions(request):
+    
+#     transactions = blockchain.transactions
+#     return render(request,'./templates/index.html', {'transactions': transactions})
+
 
 # Getting the full Blockchain
 def get_chain(request):
@@ -174,6 +184,8 @@ def is_valid(request):
 # Adding a new transaction to the Blockchain
 @csrf_exempt
 def add_transaction(request): #New
+  
+    
     if request.method == 'POST':
         received_json = json.loads(request.body)
         print(received_json)
@@ -182,6 +194,7 @@ def add_transaction(request): #New
             return 'Some elements of the transaction are missing', HttpResponse(status=400)
         index = blockchain.add_transaction(received_json['sender'], received_json['receiver'], received_json['amount'],received_json['time'])
         response = {'message': f'This transaction will be added to Block {index}'}
+      #  list_transactions(request)
     return JsonResponse(response)
 
 # Connecting new nodes
@@ -210,3 +223,8 @@ def replace_chain(request): #New
             response = {'message': 'All good. The chain is the largest one.',
                         'actual_chain': blockchain.chain}
     return JsonResponse(response)
+
+def index(request):
+      template = loader.get_template('index.html')
+
+      return HttpResponse(template.render())

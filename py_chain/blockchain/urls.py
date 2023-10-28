@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
   
+path('index/', views.index, name="index"),
 path('get_chain/', views.get_chain, name="get_chain"),
 path('mine_block/', views.mine_block, name="mine_block"),
 path('add_transaction/', views.add_transaction, name="add_transaction"),
