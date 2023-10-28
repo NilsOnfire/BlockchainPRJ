@@ -20,38 +20,38 @@
     color: greenyellow;
     border-radius: 10px;
     padding: 10px;
-    
+
 }
 
 
-.form-group{
+.form-group {
     display: flex;
     flex-direction: column;
-margin-bottom: 5px;
-height: 50px;
+    margin-bottom: 5px;
+    height: 50px;
 }
 
 
-label{
-align-self: start;
-font-weight: bold;
-margin-left: 2px;
-font-family: Source Code Pro;
+label {
+    align-self: start;
+    font-weight: bold;
+    margin-left: 2px;
+    font-family: Source Code Pro;
 
 }
 
-input{
+input {
     display: flex;
     align-items: flex-end;
     height: 30px;
     font-family: monospace;
     font-size: medium;
-border-radius: 5px;
+    border-radius: 5px;
 }
 
 
-button{
-    margin: 20px; ;
+button {
+    margin: 20px;
     height: 30px;
     width: 70px;
     font-family: monospace;
