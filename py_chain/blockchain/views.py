@@ -71,7 +71,8 @@ class Blockchain:
             'sender':sender,
             'receiver':receiver,
             'amount':amount,
-            'time': time})
+            'time': time,
+            'image': qrtimestamp("",sender, receiver, amount, time)})
         previous_block = self.get_previous_block()
         return previous_block['index']+1
     
@@ -139,6 +140,7 @@ def mine_block(request):
         previous_block = blockchain.get_previous_block()
         previous_nonce = previous_block['proof']
         nonce = blockchain.proof_of_work(previous_nonce)
+        print(f"Nonce: {nonce}")
         previous_hash = blockchain.hash(previous_block)
         blockchain.add_transaction(sender = root_node, receiver = node_address, amount = 1.15, time=str(datetime.datetime.now()))
         block = blockchain.create_block(nonce, previous_hash)
@@ -230,3 +232,42 @@ def index(request):
       template = loader.get_template('index.html')
 
       return HttpResponse(template.render())
+
+def camera(request):
+      template = loader.get_template('camera.html')
+
+      return HttpResponse(template.render())
+
+import qrcode
+import qrcode.image.svg
+import io
+import base64
+from qrcode.image.svg import SvgPathFillImage
+
+def qrtimestamp(request, sender,receiver,amount,time):
+ 
+    """
+        timestamp = 1545730073
+        dt_object = datetime.fromtimestamp(timestamp)
+    
+        print("dt_object =", dt_object)
+        print("type(dt_object) =", type(dt_object))
+    """
+    from datetime import datetime
+    cedula="8355910 Julian Andres Pérez"
+    a= datetime.now()
+    t= a.timestamp()
+   # print(base64J(t))
+   
+    data = str(sender) + "," + str(receiver) + "," + str(amount) + "," + str(time)
+    print(json.dumps(data))
+    img = qrcode.make(data, image_factory=SvgPathFillImage)
+ 
+    buf = io.BytesIO()     # BytesIO se da cuenta de leer y escribir bytes en la memoria
+    img.save(buf)
+ 
+    #image_stream = buf.getvalue()
+    #print(image_stream)
+    base64_image = base64.b64encode(buf.getvalue()).decode()
+    #response = HttpResponse(image_stream, content_type="image/png" )
+    return "data:image/svg+xml;utf8;base64, " + str(base64_image)

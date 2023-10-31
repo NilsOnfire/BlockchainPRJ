@@ -26,6 +26,9 @@
             </form>
 
         </div>
+        <div class="status">
+           
+        </div>
 
         <!-- Transactions Component -->
         <div class="transactions">
@@ -38,6 +41,7 @@
                         <th>To</th>
                         <th>Amount (Cert)</th>
                         <th>Timestamp</th>
+                        <th>QR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +51,7 @@
                         <td>{{ transaction.receiver }}</td>
                         <td>{{ transaction.amount }}</td>
                         <td>{{ transaction.time }}</td>
+                        <td> <img src="{{transaction.image|safe}}"/> </td>
                     </tr>
                     {% endfor %}
                 </tbody>
